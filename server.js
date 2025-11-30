@@ -1,5 +1,6 @@
 require("dotenv").config();
 console.log("MONGO_URI existe:", !!process.env.MONGO_URI);
+
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
@@ -10,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Conectar BD
+// Conectar BD (solo una vez)
 connectDB();
 
 // Rutas
@@ -33,6 +34,6 @@ io.on("connection", (socket) => {
     });
 });
 
-// Iniciar servidor
+// Iniciar servidor (solo uno)
 const PORT = process.env.PORT || 3000;
-http.listen(PORT, () => console.log("🚀 API lista en puerto", PORT));
+http.listen(PORT, () => console.log(`🚀 API lista en puerto ${PORT}`));
